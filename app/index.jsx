@@ -6,7 +6,7 @@ const index = () => {
 	return (
 		<View className = "flex-1 justify-center items-center">
 			<Link href = "/(screens)/home">
-				<Button title = "Go to Home Screen" />
+				<Button title = "Todoable" />
 			</Link>
 		</View>
 	)

@@ -1,14 +1,27 @@
-import { View, Text, Button } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import { FlatList, View, Text } from 'react-native'
+import React, { useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const index = () => {
+	const [tasks, setTasks] = useState([])
+
 	return (
-		<View className = "flex-1 justify-center items-center">
-			<Link href = "/(screens)/home">
-				<Button title = "Todoable" />
-			</Link>
-		</View>
+		<SafeAreaView>
+			<FlatList
+				data = {tasks}
+				keyExtractor = {(item) => item.id.toString()}
+				renderItem = {({ item }) => (
+					<TaskItem task = {item} />
+				)}
+				ListHeaderComponent = {() => (
+					<View className = "justify-center items-center m-3 border rounded-2xl bg-cyan-200">
+						<Text className = "p-2 text-2xl font-lsemibold">
+							Todoable
+						</Text>
+					</View>
+				)}
+			/>
+		</SafeAreaView>
 	)
 }
 

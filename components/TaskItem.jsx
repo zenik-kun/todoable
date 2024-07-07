@@ -4,7 +4,7 @@ import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler'
 import { icons } from '../constants'
 import EditModal from '../components/EditModal'
 
-const TaskItem = ({ task: {id, title, description}, onDone }) => {
+const TaskItem = ({ task: {id, title, description}, onDone, refetch }) => {
 	const swipeableRef = useRef(null)
 	const [editModalVisible, setEditModalVisible] = useState(false)
 	const [currentTask, setCurrentTask] = useState({ id, title, description })
@@ -88,6 +88,7 @@ const TaskItem = ({ task: {id, title, description}, onDone }) => {
 				visible = {editModalVisible}
 				task = {currentTask}
 				onClose = {handleSubmit}
+				refetch = {refetch}
 			/>
 		</GestureHandlerRootView>
 	)

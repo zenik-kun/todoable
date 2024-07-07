@@ -4,7 +4,7 @@ import FormField from './FormField'
 import { addTask } from '../lib/databases'
 import CustomButton from './CustomButton'
 
-const CreateModal = ({ visible, onClose }) => {
+const CreateModal = ({ visible, onClose, refetch }) => {
     const [adding, setAdding] = useState(false);
     const [form, setForm] = useState({
 		title: '',
@@ -23,6 +23,7 @@ const CreateModal = ({ visible, onClose }) => {
 				title: form.title,
 				description: form.description,
 			});
+            await refetch();
 
 		} catch (error) {
 			Alert.alert("Error", error.message)
@@ -33,6 +34,7 @@ const CreateModal = ({ visible, onClose }) => {
             });
 
             setAdding(false);
+            onClose();
         }
 	};
 

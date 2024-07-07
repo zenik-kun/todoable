@@ -54,6 +54,7 @@ const index = () => {
 					<TaskItem 
 						task = {item} 
 						onDone = {onDone}
+						refetch = {refetch}
 					/>
 				)}
 				ListHeaderComponent = {() => (
@@ -82,6 +83,7 @@ const index = () => {
 			<CreateModal 
 				visible = {createVisible}
 				onClose = {() => setCreateVisible(false)}
+				refetch = {refetch}
 			/>
 			<StatusBar />
 		</SafeAreaView>

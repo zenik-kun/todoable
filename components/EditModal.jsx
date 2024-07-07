@@ -4,7 +4,7 @@ import FormField from './FormField'
 import { editTask } from '../lib/databases'
 import CustomButton from './CustomButton'
 
-const EditModal = ({ visible, task, onClose }) => {
+const EditModal = ({ visible, task, onClose, refetch }) => {
     const [adding, setAdding] = useState(false);
     const [form, setForm] = useState({
 		title: '',
@@ -33,6 +33,7 @@ const EditModal = ({ visible, task, onClose }) => {
             };
 
             await editTask(updatedData.id, updatedData);
+            await refetch();
             onClose();
         } catch (error) {
             Alert.alert("Error", error.message);

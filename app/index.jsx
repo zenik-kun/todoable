@@ -1,8 +1,8 @@
-import { FlatList, View, Text, TouchableOpacity, Alert } from 'react-native'
+import { FlatList, View, Text, TouchableOpacity, Alert, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CreateModal from '../components/CreateModal'
-import { getAllTasks } from '../lib/databases'
+import { doneTask, getAllTasks } from '../lib/databases'
 import TaskItem from '../components/TaskItem'
 
 const index = () => {
@@ -24,6 +24,15 @@ const index = () => {
 	useEffect(() => {
 		refetch();
 	}, []);
+
+	const onDone = async (id) => {
+		try {
+			await doneTask(id);
+			refetch();
+		} catch (error) {
+			Alert.alert("Error", error.message);
+		}
+	}
 	
 
 	return (
@@ -32,7 +41,10 @@ const index = () => {
 				data = {tasks}
 				keyExtractor = {(item) => item.id.toString()}
 				renderItem = {({ item }) => (
-					<TaskItem task = {item} />
+					<TaskItem 
+						task = {item} 
+						onDone = {onDone}
+					/>
 				)}
 				ListHeaderComponent = {() => (
 					<View className = "">
@@ -44,6 +56,7 @@ const index = () => {
 						
 					</View>
 				)}
+				refreshControl = {<RefreshControl refreshing = {refreshing} onRefresh = {onRefresh} />}
 			/>
 			<TouchableOpacity 
 			className = "bg-cyan-200 absolute bottom-5 right-5 rounded-[150px] p-2 w-16 h-16 justify-center items-center shadow"

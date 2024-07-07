@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler'
 import { icons } from '../constants'
 
-const TaskItem = ({ task: {title, description}, onDone, onEdit }) => {
+const TaskItem = ({ task: {id, title, description}, onDone, onEdit }) => {
 	const swipeableRef = useRef(null)
 
 	const handleSwipeableOpen = () => {

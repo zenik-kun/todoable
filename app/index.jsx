@@ -2,8 +2,9 @@ import { FlatList, View, Text, TouchableOpacity, Alert, RefreshControl } from 'r
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CreateModal from '../components/CreateModal'
-import { doneTask, getAllTasks } from '../lib/databases'
+import { doneTask, editTask, getAllTasks } from '../lib/databases'
 import TaskItem from '../components/TaskItem'
+import { StatusBar } from 'expo-status-bar'
 
 const index = () => {
 	const [createVisible, setCreateVisible] = useState(false)
@@ -33,10 +34,19 @@ const index = () => {
 			Alert.alert("Error", error.message);
 		}
 	}
+
+	const onEdit = async (updatedTask) => {
+		try {
+			await editTask(updatedTask.id, updatedTask);
+			refetch();
+		} catch (error) {
+			Alert.alert("Error", error.message)
+		}
+	}
 	
 
 	return (
-		<SafeAreaView className ="h-full">
+		<SafeAreaView className ="h-full bg-white">
 			<FlatList
 				data = {tasks}
 				keyExtractor = {(item) => item.id.toString()}
@@ -58,6 +68,7 @@ const index = () => {
 				)}
 				refreshControl = {<RefreshControl refreshing = {refreshing} onRefresh = {onRefresh} />}
 			/>
+
 			<TouchableOpacity 
 			className = "bg-cyan-200 absolute bottom-5 right-5 rounded-[150px] p-2 w-16 h-16 justify-center items-center shadow"
 			onPress = {() => {
@@ -72,6 +83,7 @@ const index = () => {
 				visible = {createVisible}
 				onClose = {() => setCreateVisible(false)}
 			/>
+			<StatusBar />
 		</SafeAreaView>
 	)
 }

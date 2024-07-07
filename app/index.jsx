@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CreateModal from '../components/CreateModal'
 import { getAllTasks } from '../lib/databases'
-
+import TaskItem from '../components/TaskItem'
 
 const index = () => {
 	const [createVisible, setCreateVisible] = useState(false)
